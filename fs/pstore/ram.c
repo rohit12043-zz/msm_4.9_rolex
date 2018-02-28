@@ -34,9 +34,6 @@
 #include <linux/slab.h>
 #include <linux/compiler.h>
 #include <linux/pstore_ram.h>
-#include <linux/bootmem.h>
-#include <linux/memblock.h>
-
 #include <linux/of.h>
 #include <linux/of_address.h>
 
@@ -56,7 +53,7 @@ MODULE_PARM_DESC(record_size,
 		"size of each dump done on oops/panic");
 
 
-static ulong ramoops_console_size = 256*1024UL;
+static ulong ramoops_console_size = 2048*1024UL;
 
 module_param_named(console_size, ramoops_console_size, ulong, 0400);
 MODULE_PARM_DESC(console_size, "size of kernel console log");
@@ -68,7 +65,7 @@ MODULE_PARM_DESC(ftrace_size, "size of ftrace log");
 #if (defined CONFIG_MACH_XIAOMI_MIDO) || (defined CONFIG_MACH_XIAOMI_TISSOT)
 static ulong ramoops_pmsg_size = 32*1024UL;
 #else
-static ulong ramoops_pmsg_size = MIN_MEM_SIZE;
+static ulong ramoops_pmsg_size = 256*1024UL;
 #endif
 module_param_named(pmsg_size, ramoops_pmsg_size, ulong, 0400);
 MODULE_PARM_DESC(pmsg_size, "size of user space message log");
@@ -76,7 +73,7 @@ MODULE_PARM_DESC(pmsg_size, "size of user space message log");
 #if (defined CONFIG_MACH_XIAOMI_MIDO) || (defined CONFIG_MACH_XIAOMI_TISSOT)
 static unsigned long long mem_address = 0x9ff00000;
 #else
-static unsigned long long mem_address;
+static unsigned long long mem_address = 0x9ff00000 ;
 #endif
 module_param(mem_address, ullong, 0400);
 MODULE_PARM_DESC(mem_address,
@@ -85,7 +82,7 @@ MODULE_PARM_DESC(mem_address,
 #if (defined CONFIG_MACH_XIAOMI_MIDO) || (defined CONFIG_MACH_XIAOMI_TISSOT)
 static ulong mem_size = 0x100000;
 #else
-static ulong mem_size;
+static ulong mem_size = 0x0030000;
 #endif
 module_param(mem_size, ulong, 0400);
 MODULE_PARM_DESC(mem_size,
