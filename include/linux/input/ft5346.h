@@ -346,3 +346,4 @@ extern int fts_open_short_test(char *ini_file_name, char *bufdest, ssize_t *pinu
 
 
 #endif
+
