@@ -52,3 +52,4 @@ enum{
 int hardwareinfo_set_prop(int cmd, const char *name);
 void hardwareinfo_tp_register(void (*fn)(void *), void *driver_data);
 #endif
+

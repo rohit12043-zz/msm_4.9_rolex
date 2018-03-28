@@ -22,3 +22,4 @@ struct vkeys_platform_data {
 	int y_offset;
 };
 #endif
+
