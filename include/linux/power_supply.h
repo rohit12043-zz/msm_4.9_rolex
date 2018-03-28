@@ -227,6 +227,7 @@ enum power_supply_property {
 	POWER_SUPPLY_PROP_COLD_TEMP,
 	POWER_SUPPLY_PROP_HOT_TEMP,
 	POWER_SUPPLY_PROP_SYSTEM_TEMP_LEVEL,
+	POWER_SUPPLY_PROP_CHARGER_TYPE,
 	POWER_SUPPLY_PROP_RESISTANCE,
 	POWER_SUPPLY_PROP_RESISTANCE_CAPACITIVE,
 	POWER_SUPPLY_PROP_RESISTANCE_ID, /* in Ohms */
@@ -306,6 +307,7 @@ enum power_supply_property {
 	POWER_SUPPLY_PROP_CC_SOC,
 	POWER_SUPPLY_PROP_QG_VBMS_MODE,
 	POWER_SUPPLY_PROP_REAL_CAPACITY,
+	POWER_SUPPLY_PROP_CHARGING_CALL_STATE,
 	/* Local extensions of type int64_t */
 	POWER_SUPPLY_PROP_CHARGE_COUNTER_EXT,
 	/* Properties of type `const char *' */
@@ -435,6 +437,7 @@ struct power_supply {
 	char **supplied_from;
 	size_t num_supplies;
 	struct device_node *of_node;
+	u8 bms_psy_ok;
 
 	/* Driver private data */
 	void *drv_data;

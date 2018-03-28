@@ -75,6 +75,8 @@
 #define MSMFB_MDP_PP_GET_FEATURE_VERSION _IOWR(MSMFB_IOCTL_MAGIC, 171, \
 					      struct mdp_pp_feature_version)
 
+#define MSMFB_ENHANCE_SET_GAMMA		_IOWR(MSMFB_IOCTL_MAGIC, 172, unsigned int)
+#define MSMFB_ENHANCE_SET_CE		_IOWR(MSMFB_IOCTL_MAGIC, 173, unsigned int)
 #define MSMFB_ENHANCE_SET_GAMMA   _IOWR(MSMFB_IOCTL_MAGIC, 172, unsigned int)
 #define MSMFB_ENHANCE_SET_CE   _IOWR(MSMFB_IOCTL_MAGIC, 173, unsigned int)
 #define MSMFB_ENHANCE_SET_EYE   _IOWR(MSMFB_IOCTL_MAGIC, 174, unsigned int)
