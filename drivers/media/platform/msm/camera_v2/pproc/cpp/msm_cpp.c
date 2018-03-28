@@ -1,4 +1,5 @@
-/* Copyright (c) 2013-2019, The Linux Foundation. All rights reserved.
+/* Copyright (c) 2013-2018, The Linux Foundation. All rights reserved.
+ * Copyright (C) 2018 XiaoMi, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -703,7 +704,6 @@ static int32_t msm_cpp_poll_rx_empty(void __iomem *cpp_base)
 	}
 	return rc;
 }
-
 static int msm_cpp_dump_addr(struct cpp_device *cpp_dev,
 	struct msm_cpp_frame_info_t *frame_info)
 {
@@ -765,7 +765,7 @@ static int msm_cpp_dump_addr(struct cpp_device *cpp_dev,
 				cpp_frame_msg[s_base + rd_ref_off + i * s_size]
 				);
 		}
-
+  
 		if (ubwc_enabled) {
 			pr_err("stripe %d: metadata %x, %x, %x, %x\n", i,
 				cpp_frame_msg[s_base + wr0_mdata_off +
@@ -865,6 +865,16 @@ static void msm_cpp_iommu_fault_handler(struct iommu_domain *domain,
 				break;
 			usleep_range(100, 200);
 			counter++;
+				rc = cpp_load_fw(cpp_dev, cpp_dev->fw_name_bin);
+
+		if (rc < 0) {
+			pr_err("load fw failure %d-retry\n", rc);
+			rc = msm_cpp_reset_vbif_and_load_fw(cpp_dev);
+			if (rc < 0) {
+				msm_cpp_set_micro_irq_mask(cpp_dev, 1, 0x8);
+				mutex_unlock(&cpp_dev->mutex);
+				return;
+			}
 		}
 
 		/* MMSS_A_CPP_IRQ_STATUS_0 = 0x10 */
@@ -925,11 +935,18 @@ static int cpp_init_mem(struct cpp_device *cpp_dev)
 	}
 
 	cpp_dev->iommu_hdl = iommu_hdl;
+
 	cam_smmu_reg_client_page_fault_handler(
 			cpp_dev->iommu_hdl,
+<<<<<<< HEAD
 			msm_cpp_iommu_fault_handler,
 			msm_cpp_iommu_fault_reset_handler,
 			cpp_dev);
+=======
+			msm_cpp_iommu_fault_handler, cpp_dev);
+
+
+>>>>>>> 5d1e22992e95... camerav2: Import xiaomi changes
 	return 0;
 }
 
