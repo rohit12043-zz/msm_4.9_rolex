@@ -453,3 +453,4 @@ qrd_batterydata: qcom,battery-data {
 	qcom,no-aarch64;
 };
 
+
