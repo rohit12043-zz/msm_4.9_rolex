@@ -417,6 +417,13 @@ int pstore_mkfile(enum pstore_type_id type, char *psname, u64 id, int count,
 	list_add(&private->list, &allpstore);
 	spin_unlock_irqrestore(&allpstore_lock, flags);
 
+#ifdef CONFIG_PSTORE_LAST_KMSG
+	if (type == PSTORE_TYPE_CONSOLE) {
+		console_buffer = private->data;
+		console_bufsize = size;
+	}
+#endif
+
 	inode_unlock(d_inode(root));
 #ifdef CONFIG_PSTORE_LAST_KMSG
 	if (type == PSTORE_TYPE_CONSOLE) {
