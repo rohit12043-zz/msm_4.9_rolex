@@ -686,8 +686,10 @@ static ssize_t pvr2fb_write(struct fb_info *info, const char *buf,
 	if (!pages)
 		return -ENOMEM;
 
-	ret = get_user_pages_unlocked((unsigned long)buf, nr_pages, pages,
-			FOLL_WRITE);
+	down_read(&current->mm->mmap_sem);
+	ret = get_user_pages(current, current->mm, (unsigned long)buf,
+			     nr_pages, WRITE, 0, pages, NULL);
+	up_read(&current->mm->mmap_sem);
 
 	if (ret < nr_pages) {
 		nr_pages = ret;
@@ -735,7 +737,7 @@ out:
 
 out_unmap:
 	for (i = 0; i < nr_pages; i++)
-		put_page(pages[i]);
+		page_cache_release(pages[i]);
 
 	kfree(pages);
 

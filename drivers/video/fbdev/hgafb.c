@@ -106,7 +106,7 @@ static DEFINE_SPINLOCK(hga_reg_lock);
 
 /* Framebuffer driver structures */
 
-static const struct fb_var_screeninfo hga_default_var = {
+static struct fb_var_screeninfo hga_default_var = {
 	.xres		= 720,
 	.yres 		= 348,
 	.xres_virtual 	= 720,
@@ -285,8 +285,6 @@ static int hga_card_detect(void)
 	hga_vram_len  = 0x08000;
 
 	hga_vram = ioremap(0xb0000, hga_vram_len);
-	if (!hga_vram)
-		goto error;
 
 	if (request_region(0x3b0, 12, "hgafb"))
 		release_io_ports = 1;
@@ -419,7 +417,8 @@ static int hgafb_pan_display(struct fb_var_screeninfo *var,
 			     struct fb_info *info)
 {
 	if (var->vmode & FB_VMODE_YWRAP) {
-		if (var->yoffset >= info->var.yres_virtual ||
+		if (var->yoffset < 0 || 
+		    var->yoffset >= info->var.yres_virtual ||
 		    var->xoffset)
 			return -EINVAL;
 	} else {

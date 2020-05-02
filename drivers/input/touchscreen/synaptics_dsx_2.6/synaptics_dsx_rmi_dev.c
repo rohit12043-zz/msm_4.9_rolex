@@ -5,7 +5,6 @@
  *
  * Copyright (C) 2012 Alexandra Chin <alexandra.chin@tw.synaptics.com>
  * Copyright (C) 2012 Scott Lin <scott.lin@tw.synaptics.com>
- * Copyright (C) 2018 The Linux Foundation. All rights reserved.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -119,7 +118,7 @@ struct rmidev_data {
 static struct bin_attribute attr_data = {
 	.attr = {
 		.name = "data",
-		.mode = 0664,
+		.mode = (S_IRUGO | S_IWUSR),
 	},
 	.size = 0,
 	.read = rmidev_sysfs_data_show,
@@ -127,25 +126,25 @@ static struct bin_attribute attr_data = {
 };
 
 static struct device_attribute attrs[] = {
-	__ATTR(open, 0220,
+	__ATTR(open, S_IWUSR | S_IWGRP,
 			NULL,
 			rmidev_sysfs_open_store),
-	__ATTR(release, 0220,
+	__ATTR(release, S_IWUSR | S_IWGRP,
 			NULL,
 			rmidev_sysfs_release_store),
-	__ATTR(attn_state, 0444,
+	__ATTR(attn_state, S_IRUGO,
 			rmidev_sysfs_attn_state_show,
 			NULL),
-	__ATTR(pid, 0664,
+	__ATTR(pid, S_IRUGO | S_IRUGO | S_IWUSR | S_IWGRP,
 			rmidev_sysfs_pid_show,
 			rmidev_sysfs_pid_store),
-	__ATTR(term, 0220,
+	__ATTR(term, S_IWUSR | S_IWGRP,
 			NULL,
 			rmidev_sysfs_term_store),
-	__ATTR(intr_mask, 0444,
+	__ATTR(intr_mask, S_IRUGO,
 			rmidev_sysfs_intr_mask_show,
 			rmidev_sysfs_intr_mask_store),
-	__ATTR(concurrent, 0444,
+	__ATTR(concurrent, S_IRUGO,
 			rmidev_sysfs_concurrent_show,
 			rmidev_sysfs_concurrent_store),
 };

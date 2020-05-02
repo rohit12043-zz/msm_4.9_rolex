@@ -1,4 +1,4 @@
-/* Copyright (c) 2013, 2018 The Linux Foundation. All rights reserved.
+/* Copyright (c) 2013, The Linux Foundation. All rights reserved.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -30,7 +30,7 @@
 #define BORDER_ADJUST_NUM 3
 #define BORDER_ADJUST_DENOM 4
 
-static struct kobject *vkey_obj;
+struct kobject *vkey_obj;
 static char *vkey_buf;
 
 static ssize_t vkey_show(struct kobject  *obj,
@@ -42,7 +42,7 @@ static ssize_t vkey_show(struct kobject  *obj,
 
 static struct kobj_attribute vkey_obj_attr = {
 	.attr = {
-		.mode = 0444,
+		.mode = S_IRUGO,
 	},
 	.show = vkey_show,
 };
@@ -127,14 +127,18 @@ static int vkeys_probe(struct platform_device *pdev)
 	char *name;
 
 	vkey_buf = devm_kzalloc(&pdev->dev, MAX_BUF_SIZE, GFP_KERNEL);
-	if (!vkey_buf)
+	if (!vkey_buf) {
+		dev_err(&pdev->dev, "Failed to allocate memory\n");
 		return -ENOMEM;
+	}
 
 	if (pdev->dev.of_node) {
 		pdata = devm_kzalloc(&pdev->dev,
 			sizeof(struct vkeys_platform_data), GFP_KERNEL);
-		if (!pdata)
+		if (!pdata) {
+			dev_err(&pdev->dev, "Failed to allocate memory\n");
 			return -ENOMEM;
+		}
 
 		ret = vkey_parse_dt(&pdev->dev, pdata);
 		if (ret) {
@@ -207,7 +211,7 @@ static int vkeys_remove(struct platform_device *pdev)
 	return 0;
 }
 
-static const struct of_device_id vkey_match_table[] = {
+static struct of_device_id vkey_match_table[] = {
 	{ .compatible = "qcom,gen-vkeys",},
 	{ },
 };
