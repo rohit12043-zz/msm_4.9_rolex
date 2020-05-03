@@ -1855,7 +1855,7 @@ static int ft5x0x_GetFirmwareSize(char *firmware_name)
 		CTP_ERROR("error occured while opening file %s.\n", filepath);
 		return -EPERM;
 	}
-	inode = pfile->f_dentry->d_inode;
+	inode = pfile->f_path.dentry->d_inode;
 	magic = inode->i_sb->s_magic;
 	fsize = inode->i_size;
 	filp_close(pfile, NULL);
@@ -1882,7 +1882,7 @@ static int ft5x0x_ReadFirmware(char *firmware_name, unsigned char *firmware_buf)
 		CTP_ERROR("error occured while opening file %s.\n", filepath);
 		return -EPERM;
 	}
-	inode = pfile->f_dentry->d_inode;
+	inode = pfile->f_path.dentry->d_inode;
 	magic = inode->i_sb->s_magic;
 	fsize = inode->i_size;
 

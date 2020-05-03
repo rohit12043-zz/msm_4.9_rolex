@@ -938,15 +938,12 @@ static int cpp_init_mem(struct cpp_device *cpp_dev)
 
 	cam_smmu_reg_client_page_fault_handler(
 			cpp_dev->iommu_hdl,
-<<<<<<< HEAD
 			msm_cpp_iommu_fault_handler,
 			msm_cpp_iommu_fault_reset_handler,
 			cpp_dev);
-=======
 			msm_cpp_iommu_fault_handler, cpp_dev);
 
 
->>>>>>> 5d1e22992e95... camerav2: Import xiaomi changes
 	return 0;
 }
 
