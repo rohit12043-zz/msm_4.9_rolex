@@ -229,7 +229,6 @@
 #define KEY_COFFEE		152	/* AL Terminal Lock/Screensaver */
 #define KEY_SCREENLOCK		KEY_COFFEE
 #define KEY_ROTATE_DISPLAY	153	/* Display orientation for e.g. tablets */
-#define KEY_DIRECTION		KEY_ROTATE_DISPLAY
 #define KEY_CYCLEWINDOWS	154
 #define KEY_MAIL		155
 #define KEY_BOOKMARKS		156	/* AC Bookmarks */
@@ -787,12 +786,7 @@
 #define SW_FRONT_PROXIMITY	0x0b  /* set = front proximity sensor active */
 #define SW_ROTATE_LOCK		0x0c  /* set = rotate locked/disabled */
 #define SW_LINEIN_INSERT	0x0d  /* set = inserted */
-#define SW_MUTE_DEVICE		0x0e  /* set = device disabled */
 #define SW_PEN_INSERTED		0x0f  /* set = pen inserted */
-#define SW_HPHL_OVERCURRENT	0x10  /* set = over current on left hph */
-#define SW_HPHR_OVERCURRENT	0x11  /* set = over current on right hph */
-#define SW_MICROPHONE2_INSERT   0x12  /* set = inserted */
-#define SW_UNSUPPORT_INSERT	0x13  /* set = unsupported device inserted */
 #define SW_MAX			0x20
 #define SW_CNT			(SW_MAX+1)
 
