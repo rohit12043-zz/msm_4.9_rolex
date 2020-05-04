@@ -43,10 +43,6 @@ enum usb_noc_mode {
 	USB_NOC_NUM_VOTE,
 };
 
-#define IDEV_CHG_MAX	1000
-#define IUNIT		100
-#define IDEV_HVDCP_CHG_MAX	1800
-#define IDEV_CHG_MIN 500
 
 /**
  * Different states involved in USB charger detection.
