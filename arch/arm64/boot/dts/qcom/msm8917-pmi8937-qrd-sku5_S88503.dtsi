@@ -448,7 +448,4 @@ qrd_batterydata: qcom,battery-data {
 		};
 	};
 };
-&apps_iommu {
-	qcom,no-aarch64;
-};
 
