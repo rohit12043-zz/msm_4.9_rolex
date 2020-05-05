@@ -54,7 +54,6 @@
 	firmware: firmware {
 		android {
 			compatible = "android,firmware";
-
 			fstab {
 				compatible = "android,fstab";
 				vendor {
@@ -162,8 +161,10 @@
 			compatible = "removed-dma-pool";
 			no-map;
 			reg = <0x0 0x9ff00000 0x0 0x300000>;	
+        
+		};
 };
-
+ 
 	soc: soc { };
 	vendor: vendor {
 		#address-cells = <1>;
