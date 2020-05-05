@@ -678,6 +678,7 @@ struct inode {
 
 	struct hlist_node	i_hash;
 	struct list_head	i_io_list;	/* backing dev IO list */
+	struct mutex		i_mutex;
 #ifdef CONFIG_CGROUP_WRITEBACK
 	struct bdi_writeback	*i_wb;		/* the associated cgroup wb */
 
