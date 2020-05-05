@@ -157,8 +157,12 @@
                         ftrace-size = <0x1000>;
                         pmsg-size = <0x200000>;
                         ecc-size = <0>;
-       		};
-	};
+		};
+		pstore_reserve_mem: pstore_reserve_mem_region@0 {
+			compatible = "removed-dma-pool";
+			no-map;
+			reg = <0x0 0x9ff00000 0x0 0x300000>;	
+};
 
 	soc: soc { };
 	vendor: vendor {
