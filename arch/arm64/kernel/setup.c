@@ -67,6 +67,7 @@
 #include <asm/mmu_context.h>
 #include <asm/system_misc.h>
 
+phys_addr_t __fdt_pointer __initdata;
 extern void pstore_ram_reserve_memory(void);
 
 unsigned int boot_reason;
